@@ -1,138 +1,230 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ByteBank - Simulador de Juros Compostos</title>
+    <title>ByteBank Moderno</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f9;
-            color: #333;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #0b0c10;
+            color: #ffffff;
             margin: 0;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             justify-content: center;
         }
-        .bank-card {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        .app-container {
             width: 100%;
-            max-width: 450px;
+            max-width: 420px;
+            background: #1f2833;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-sizing: border-box;
         }
-        .brand {
-            color: #4A00E0;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 5px;
-        }
-        .subtitle {
-            text-align: center;
-            color: #777;
-            font-size: 14px;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 25px;
         }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #66fcf1;
+        }
+        .user-badge {
+            background: #45f3ff33;
+            color: #66fcf1;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .balance-card {
+            background: linear-gradient(135deg, #1f4068, #162447);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #45f3ff33;
+        }
+        .balance-label {
+            font-size: 13px;
+            color: #95a5a6;
+            margin-bottom: 5px;
+        }
+        .balance-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #66fcf1;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #c5c6c7;
+        }
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            font-size: 14px;
+            font-size: 12px;
+            color: #a8a8a8;
+            margin-bottom: 4px;
         }
         input {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            padding: 12px;
+            background: #0b0c10;
+            border: 1px solid #45f3ff33;
+            border-radius: 10px;
+            color: white;
+            font-size: 15px;
             box-sizing: border-box;
-            font-size: 16px;
+        }
+        input:focus {
+            outline: none;
+            border-color: #66fcf1;
         }
         button {
             width: 100%;
-            background: linear-gradient(135deg, #4A00E0, #8E2DE2);
-            color: white;
+            background: #66fcf1;
+            color: #0b0c10;
             border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
-            transition: opacity 0.2s;
-            margin-top: 10px;
+            margin-top: 5px;
+            transition: 0.2s;
         }
         button:hover {
-            opacity: 0.9;
+            background: #45b7b0;
         }
-        .result-box {
-            margin-top: 25px;
-            padding: 15px;
-            background-color: #f0fdf4;
-            border-left: 4px solid #16a34a;
-            border-radius: 4px;
-            display: none;
+        .statement-list {
+            background: #0b0c10;
+            border-radius: 12px;
+            padding: 10px;
+            max-height: 120px;
+            overflow-y: auto;
+            font-size: 13px;
         }
-        .result-title {
-            color: #16a34a;
-            font-weight: bold;
-            margin-bottom: 8px;
+        .statement-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #1f2833;
         }
+        .text-green { color: #2ecc71; }
+        .text-red { color: #e74c3c; }
     </style>
 </head>
 <body>
 
-<div class="bank-card">
-    <div class="brand">🏦 ByteBank</div>
-    <div class="subtitle">Simulador Oficial de Investimentos</div>
-
-    <div class="input-group">
-        <label for="capital">Capital Inicial (R$):</label>
-        <input type="number" id="capital" placeholder="Ex: 1000" required>
+<div class="app-container">
+    <!-- Topo do App -->
+    <div class="header">
+        <div class="logo">🏦 ByteBank</div>
+        <div class="user-badge">Conta Universitária</div>
     </div>
 
-    <div class="input-group">
-        <label for="taxa">Taxa de Juros (% ao mês):</label>
-        <input type="number" id="taxa" step="0.1" placeholder="Ex: 1" required>
+    <!-- Cartão de Saldo Principal -->
+    <div class="balance-card">
+        <div class="balance-label">Saldo Disponível</div>
+        <div class="balance-value" id="saldoTxt">R\$ 1.000,00</div>
     </div>
 
+    <!-- Área de Juros / Investimento -->
+    <div class="section-title">📈 Render Saldo (Juros Compostos)</div>
+    
     <div class="input-group">
-        <label for="tempo">Tempo (Meses):</label>
-        <input type="number" id="tempo" placeholder="Ex: 12" required>
+        <label>Taxa de Rendimento (% ao mês):</label>
+        <input type="number" id="taxa" value="1.5" step="0.1">
     </div>
+    
+    <div class="input-group">
+        <label>Tempo de Aplicação (Meses):</label>
+        <input type="number" id="tempo" placeholder="Ex: 12">
+    </div>
+    
+    <button onclick="aplicarJurosCompostos()">Simular e Render Saldo</button>
 
-    <button onclick="calcularJuros()">Simular Investimento</button>
+    <!-- Área de Depósito Fictício -->
+    <div class="section-title">💸 Adicionar Fundos (Depósito)</div>
+    <div class="input-group">
+        <input type="number" id="valorDeposito" placeholder="R\$ Valor para depositar">
+    </div>
+    <button onclick="fazerDeposito()" style="background: transparent; color: #66fcf1; border: 1px solid #66fcf1;">Depositar na Conta</button>
 
-    <div id="resultado" class="result-box">
-        <div class="result-title">📊 Extrato da Simulação:</div>
-        <p><strong>Valor Total Final:</strong> <span id="resMontante">R$ 0,00</span></p>
-        <p><strong>Juros Acumulados:</strong> <span id="resJuros">R$ 0,00</span></p>
+    <!-- Extrato -->
+    <div class="section-title">📄 Histórico de Transações</div>
+    <div class="statement-list" id="extratoBox">
+        <div class="statement-item">
+            <span>Saldo Inicial Padrão</span>
+            <span class="text-green">+ R\$ 1.000,00</span>
+        </div>
     </div>
 </div>
 
 <script>
-function calcularJuros() {
-    const P = parseFloat(document.getElementById('capital').value);
-    const i = parseFloat(document.getElementById('taxa').value) / 100;
-    const t = parseInt(document.getElementById('tempo').value);
+// Variável global para controlar o saldo do banco
+let saldoAtual = 1000.00;
 
-    if (isNaN(P) || isNaN(i) || isNaN(t)) {
-        alert("Por favor, preencha todos os campos corretamente.");
+function formatar(valor) {
+    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function atualizarTela() {
+    document.getElementById('saldoTxt').innerText = formatar(saldoAtual);
+}
+
+function fazerDeposito() {
+    const valor = parseFloat(document.getElementById('valorDeposito').value);
+    if (isNaN(valor) || valor <= 0) {
+        alert("Digite um valor válido de depósito.");
         return;
     }
 
+    saldoAtual += valor;
+    atualizarTela();
+
+    // Adiciona no extrato
+    adicionarExtrato("Depósito Recebido", valor, "text-green");
+    document.getElementById('valorDeposito').value = "";
+}
+
+function aplicarJurosCompostos() {
+    const i = parseFloat(document.getElementById('taxa').value) / 100;
+    const t = parseInt(document.getElementById('tempo').value);
+
+    if (isNaN(i) || isNaN(t) || t <= 0) {
+        alert("Por favor, preencha o tempo em meses para render.");
+        return;
+    }
+
+    // Fórmula: M = P * (1 + i)^t
+    const P = saldoAtual;
     const M = P * Math.pow((1 + i), t);
-    const juros = M - P;
+    const lucroJuros = M - P;
 
-    const formatarMoeda = (valor) => valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    // Atualiza o saldo do banco com o dinheiro rendido
+    saldoAtual = M;
+    atualizarTela();
 
-    document.getElementById('resMontante').innerText = formatarMoeda(M);
-    document.getElementById('resJuros').innerText = formatarMoeda(juros);
-    
-    document.getElementById('resultado').style.display = 'block';
+    // Adiciona no extrato o lucro dos juros do trabalho
+    adicionarExtrato(`Rendimento ${t}m (${(i*100).toFixed(1)}%)`, lucroJuros, "text-green");
+}
+
+function adicionarExtrato(descricao, valor, classeCor) {
+    const box = document.getElementById('extratoBox');
+    const item = document.createElement('div');
+    item.className = "statement-item";
+    item.innerHTML = `<span>${descricao}</span><span class="${classeCor}">+ ${formatar(valor)}</span>`;
+    box.insertBefore(item, box.firstChild); // Coloca a mais recente no topo
 }
 </script>
 
